@@ -22,7 +22,6 @@ class Node {
 }
 
 class LinkedList {
-    int val;
     Node head;
     Node tail;
     int size;
@@ -60,6 +59,7 @@ class LinkedList {
             size = 0;
             head = null;
             tail = null;
+            return;
         }
 
         while (curr.pointer != null && curr.pointer.pointer != null) {
@@ -73,11 +73,12 @@ class LinkedList {
     public void removeFirst() {
         if (size == 0 || size == 1) {
             removeLast();
+        } else {
+            Node curr = head.pointer;
+            head.pointer = null;
+            head = curr;
+            size--;
         }
-        Node curr = head.pointer;
-        head.pointer = null;
-        head = curr;
-        size--;
     }
 
     public void add(int index, int val) {
@@ -85,6 +86,7 @@ class LinkedList {
         int i = 0;
         if (index == 0) {
             addFirst(val);
+            return;
         }
         while (i < index) {
             if (index > 0 && i == index - 1) {
@@ -98,7 +100,6 @@ class LinkedList {
                 curr = curr.pointer;
             }
         }
-        size--;
     }
 
     public void remove(int index) {
@@ -106,6 +107,7 @@ class LinkedList {
         int i = 0;
         if (index == 0) {
             removeFirst();
+            return;
         }
         while (i < index) {
             if (index > 0 && i == index-1) {
@@ -117,13 +119,13 @@ class LinkedList {
                 } else {
                     curr.pointer = curr.pointer.pointer;
                 }
+                size--;
                 break;
             } else {
                 i++;
                 curr = curr.pointer;
             }
         }
-        size--;
     }
 
     public String toString() {
